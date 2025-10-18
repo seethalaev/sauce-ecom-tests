@@ -1,0 +1,34 @@
+name: Maven CI/CD Test Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # GitHub's Linux runner
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    # Setup Java Environment
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v4
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+        cache: maven
+        
+    # Run the Maven test goal
+    - name: Run Maven Tests (Selenium)
+      run: mvn -B test --file pom.xml
+      
+    # (Optional) Archive test results for detailed viewing
+    - name: Archive Test Results
+      if: always() # Run even if tests fail
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: target/surefire-reports
