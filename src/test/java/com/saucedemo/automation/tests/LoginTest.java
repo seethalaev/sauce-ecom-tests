@@ -12,7 +12,7 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         
         // Use the standard_user, which is the valid user for Saucedemo
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login("standard_user", "secret_sauce0000");
         
         // Assertion 1: Verify URL changed to the inventory page
         String currentUrl = driver.getCurrentUrl();
